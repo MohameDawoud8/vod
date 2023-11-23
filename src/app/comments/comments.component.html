@@ -1,0 +1,14 @@
+<!-- Path: src/app/comments/comment-item/comment-item.component.html -->
+<section class="not-format">
+  <div class="flex justify-between items-center mb-1">
+    <!-- Section Header -->
+    <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
+      Comments ({{ comments.length }})
+    </h2>
+  </div>
+
+  <app-comment-item
+    *ngFor="let comment of comments"
+    [comment]="comment"
+  ></app-comment-item>
+</section>
