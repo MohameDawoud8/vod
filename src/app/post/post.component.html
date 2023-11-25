@@ -1,5 +1,7 @@
 <!-- Loading State -->
-<app-loading *ngIf="isLoading"></app-loading>
+<div class="h-screen" *ngIf="isLoading">
+  <app-loading></app-loading>
+</div>
 
 <main
   *ngIf="!isLoading"
@@ -16,7 +18,7 @@
           >
             <img
               class="mr-4 w-16 h-16 rounded-full"
-              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+              src="../assets/authorPic/DallEGenerated.webp"
               alt="Jese Leos"
             />
             <div>
