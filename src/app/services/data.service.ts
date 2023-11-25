@@ -12,7 +12,13 @@ import { map, catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  constructor(@Inject(String) private url: string, private http: HttpClient) {}
+  // private req: IDBOpenDBRequest;
+  // private db: IDBDatabase;
+
+  constructor(@Inject(String) private url: string, private http: HttpClient) {
+    // IndexDB
+    // this.req = indexedDB.open('Vod', 1);
+  }
 
   getAll() {
     return this.http.get(this.url);
@@ -24,8 +30,38 @@ export class DataService {
     // .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: Response) {
-    if (error.status === 404) return throwError(() => new NotFoundError());
-    return throwError(() => new AppError(error));
-  }
+  // TODO: Implement IndexDB
+
+  // initializeDB() {
+  //   this.req.onupgradeneeded = (ev:IDBVersionChangeEvent) => {
+  //     const db = ev.target!.result;
+  //     const store = db.createObjectStore('vod', { keyPath: 'id' });
+  //     store.createIndex('id', 'id', { unique: true });
+  //     store.createIndex('title', 'title', { unique: false });
+  //     store.createIndex('body', 'body', { unique: false });
+  //     store.createIndex('userId', 'userId', { unique: false });
+  //   }
+
+  // }
+
+  // add(data: any) {
+  //   this.req.onsuccess = (this: IDBRequest<IDBDatabase>, ev: Event)=>  {
+  //     this.db = ev.target.result;
+  //     const tx = db.transaction('vod', 'readwrite');
+  //     const store = tx.objectStore('vod');
+  //     const index = store.index('id');
+  //     const request = index.getAll();
+
+  //     request.onsuccess = function (event: { target: { result: any; }; }) {
+  //       console.log(event.target.result);
+  //     }
+  //   }
+  // }
+
+  //   error () => {
+
+  //     req.onerror = function (event: { target: { error: any; }; }) {
+  //       console.log(event.target.error);
+  //     }
+  //   }
 }
