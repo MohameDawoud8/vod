@@ -12,12 +12,15 @@ import { UntypedFormBuilder } from '@angular/forms';
 export class PaginationComponent {
   @Output() onPageChange = new EventEmitter();
   @Input() currentPage!: number;
-  totalPages: number[] = new Array(4);
+  @Input() totalPages!: number;
+
+  pageNumber: number[] = new Array(10);
 
   constructor() {
     console.log(
-      '🚀 ~ file: pagination.component.ts:13 ~ PaginationComponent ~ currentPage:',
-      this.currentPage
+      '🚀 ~ file: pagination.component.ts:18 ~ PaginationComponent ~ pageNumber:',
+      this.pageNumber,
+      this.totalPages
     );
   }
   handleClick(ev: Event, page: number) {
