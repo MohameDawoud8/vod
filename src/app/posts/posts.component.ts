@@ -7,6 +7,8 @@ import { LoadingComponent } from '../common/components/loading/loading.component
 import { PostItemComponent } from './post-item/post-item.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { filter } from 'rxjs';
+import { User } from '../model/user.modal';
 
 @Component({
   selector: 'app-posts',
@@ -26,6 +28,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class PostsComponent implements OnInit {
   // Pagination State
   currentPage: number = Number(sessionStorage.getItem('currentPage')) || 1;
+  totalItems: number = 10;
+  filteredArary: [] = [];
   posts: any = [];
 
   // Request State
@@ -42,11 +46,23 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  filteredPost(searchTerm: number, rescourse = this.posts) {
+    if (searchTerm) {
+      return rescourse.filter((post: Post) => post.userId === searchTerm);
+    }
+
+    return this.posts;
+  }
+
   paginatedRescourse(
     page: number,
     rescourse = this.posts,
     itemPerPage: number = 10
   ) {
+    if (this.filteredArary.length > 0) {
+      rescourse = this.filteredArary;
+    }
+
     return rescourse.slice(
       page * itemPerPage - itemPerPage,
       page * itemPerPage
@@ -56,5 +72,17 @@ export class PostsComponent implements OnInit {
   handlePageChange(page: number) {
     this.currentPage = page;
     sessionStorage.setItem('currentPage', this.currentPage.toString());
+  }
+
+  handleSearchChange(user: User[]) {
+    console.log(
+      '🚀 ~ file: posts.component.ts:77 ~ PostsComponent ~ handleSearchChange ~ user:',
+      user
+    );
+    this.filteredArary = this.filteredPost(user[0].id);
+    console.log(
+      '🚀 ~ file: posts.component.ts:79 ~ PostsComponent ~ handleSearchChange ~ this.filteredArary:',
+      this.filteredArary
+    );
   }
 }

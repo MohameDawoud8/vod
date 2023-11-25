@@ -1,10 +1,26 @@
-<!-- Loading State -->
-<app-loading *ngIf="isLoading"></app-loading>
+<!-- Header -->
+<div class="mx-auto max-w-screen-sm text-center mb-8">
+  <h2
+    class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+  >
+    Cosmo Blog
+  </h2>
+  <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
+    Harnessing the Internet's Potential through Programming Wisdom Inspirational
+    Insights for the Coding World
+  </p>
+</div>
 
 <!-- Search Bar -->
 <div class="mb-10">
-  <app-search-bar></app-search-bar>
+  <!-- (onClear)="handleClear()" -->
+  <app-search-bar
+    (onSearchTermChange)="handleSearchChange($event)"
+  ></app-search-bar>
 </div>
+
+<!-- Loading State -->
+<app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Post List -->
 <div class="grid gap-8 lg:grid-cols-2">
@@ -18,12 +34,9 @@
 <div class="mt-12 flex justify-center">
   <app-pagination
     [currentPage]="currentPage"
+    [totalPages]="totalItems"
     (onPageChange)="handlePageChange($event)"
   >
     ></app-pagination
   >
 </div>
-
-<!--
-[totalPages]="totalPages"
--->
