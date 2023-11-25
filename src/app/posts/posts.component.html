@@ -1,7 +1,29 @@
 <!-- Loading State -->
 <app-loading *ngIf="isLoading"></app-loading>
 
+<!-- Search Bar -->
+<div class="mb-10">
+  <app-search-bar></app-search-bar>
+</div>
+
 <!-- Post List -->
 <div class="grid gap-8 lg:grid-cols-2">
-  <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
+  <app-post-item
+    *ngFor="let post of paginatedRescourse(currentPage)"
+    [post]="post"
+  ></app-post-item>
 </div>
+
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+  <app-pagination
+    [currentPage]="currentPage"
+    (onPageChange)="handlePageChange($event)"
+  >
+    ></app-pagination
+  >
+</div>
+
+<!--
+[totalPages]="totalPages"
+-->

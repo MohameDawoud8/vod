@@ -1,5 +1,5 @@
 <article
-  class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+  class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300 ease-in-out"
 >
   <div class="flex justify-between items-center mb-5 text-gray-500">
     <span
@@ -43,6 +43,7 @@
       <span class="font-medium dark:text-white"> {{ user.name }} </span>
     </div>
     <a
+      [routerLink]="['/posts', post.id]"
       href="#"
       class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline"
     >

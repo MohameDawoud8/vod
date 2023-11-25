@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from '../common/components/loading/loading.component';
 import { PostItemComponent } from './post-item/post-item.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-posts',
@@ -14,12 +16,16 @@ import { PostItemComponent } from './post-item/post-item.component';
     HttpClientModule,
     PostItemComponent,
     LoadingComponent,
+    SearchBarComponent,
+    PaginationComponent,
   ],
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css'],
   providers: [PostService],
 })
 export class PostsComponent implements OnInit {
+  // Pagination State
+  currentPage: number = Number(sessionStorage.getItem('currentPage')) || 1;
   posts: any = [];
 
   // Request State
@@ -34,5 +40,21 @@ export class PostsComponent implements OnInit {
       this.posts = posts;
       this.isLoading = false;
     });
+  }
+
+  paginatedRescourse(
+    page: number,
+    rescourse = this.posts,
+    itemPerPage: number = 10
+  ) {
+    return rescourse.slice(
+      page * itemPerPage - itemPerPage,
+      page * itemPerPage
+    );
+  }
+
+  handlePageChange(page: number) {
+    this.currentPage = page;
+    sessionStorage.setItem('currentPage', this.currentPage.toString());
   }
 }
